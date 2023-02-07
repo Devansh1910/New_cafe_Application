@@ -16,10 +16,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="GCafe.Activities.SplashScreenActivity"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
             android:name="GCafe.Activities.SearchActivity"
             android:exported="false"
             android:theme="@style/Theme.Cafe.Actionbar." />
-
         <activity
             android:name="GCafe.Activities.CategoryActivity"
             android:exported="false"
@@ -45,12 +53,8 @@
             android:theme="@style/Theme.Cafe.Actionbar." />
         <activity
             android:name="GCafe.Activities.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

@@ -12,4 +12,6 @@
     <color name="backgroundColor">#E8E8E8</color>
     //.....BAR COLOR....
     <color name="Red">#E10000</color>
+    //......splash screen....
+    <color name="splashbg">#680606</color>
 </resources>
