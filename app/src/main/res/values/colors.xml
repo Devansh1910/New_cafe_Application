@@ -14,4 +14,7 @@
     <color name="Red">#E10000</color>
     //......splash screen....
     <color name="splashbg">#680606</color>
+    //.....registration......
+    <color name="colorPrimary">#C10C0C</color>
+    <color name="colorSecondry">#ffffff</color>
 </resources>

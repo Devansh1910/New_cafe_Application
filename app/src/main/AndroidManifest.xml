@@ -16,18 +16,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="GCafe.Activities.GettingStartedActivity"
+            android:exported="false" />
+        <activity
             android:name="GCafe.Activities.SplashScreenActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity
-            android:name="GCafe.Activities.SearchActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Cafe.Actionbar." />
         <activity
             android:name="GCafe.Activities.CategoryActivity"
             android:exported="false"
@@ -53,9 +52,7 @@
             android:theme="@style/Theme.Cafe.Actionbar." />
         <activity
             android:name="GCafe.Activities.MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
