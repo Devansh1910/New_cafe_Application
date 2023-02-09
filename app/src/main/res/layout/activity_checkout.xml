@@ -304,7 +304,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/white"
-                android:background="@color/Red"
+                android:background="@color/splashbg"
                 android:text="Process Checkout" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

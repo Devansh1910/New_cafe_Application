@@ -3,8 +3,8 @@
     <style name="Theme.Cafe" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/Red</item>
-        <item name="colorPrimaryVariant">@color/Red</item>
+        <item name="colorPrimary">@color/splashbg</item>
+        <item name="colorPrimaryVariant">@color/splashbg</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -23,8 +23,8 @@
 
     <style name="Theme.Cafe.Actionbar." parent="Theme.MaterialComponents.DayNight.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/Red</item>
-        <item name="colorPrimaryVariant">@color/Red</item>
+        <item name="colorPrimary">@color/splashbg</item>
+        <item name="colorPrimaryVariant">@color/splashbg</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         initCategories();
         initProducts();
         initSlider();
+
+        userDetails();
     }
 
     private void initSlider() {
@@ -197,4 +200,12 @@ public class MainActivity extends AppCompatActivity {
         binding.productList.setAdapter(productAdapter);
     }
 
+    private void userDetails(){
+        binding.userimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ProfileActivity.class));
+            }
+        });
+    }
 }

@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Add to cart"
-        android:background="@color/Red"
+        android:background="@color/splashbg"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:circularflow_radiusInDP="10dp"

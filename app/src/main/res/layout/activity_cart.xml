@@ -76,7 +76,7 @@
         android:id="@+id/continueBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/Red"
+        android:background="@color/splashbg"
         android:text="CONTINUE"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
