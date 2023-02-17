@@ -1,11 +1,9 @@
 package GCafe.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import com.android.volley.toolbox.StringRequest;
-import com.example.cafe.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cafe.databinding.ActivityPaymentBinding;
 
 import GCafe.Activities.Utils.Constants;

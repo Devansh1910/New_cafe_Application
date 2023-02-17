@@ -12,7 +12,7 @@ public class Product implements Item, Serializable {
 
     private int quantity;
 
-    public Product(String name, String image, String status, double price, double discount, int stock, int id) {
+    public Product(String name, String image, String status, double price, double discount, int stock, int id, int ordercode) {
         this.name = name;
         this.image = image;
         this.status = status;
@@ -20,6 +20,9 @@ public class Product implements Item, Serializable {
         this.discount = discount;
         this.stock = stock;
         this.id = id;
+    }
+
+    public Product(String name, String image, String status, double price, double price_discount, int stock, int id) {
     }
 
     public String getName() {

@@ -20,6 +20,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/pure_red</item>
+    </style>
+    //..........................................
+
 
     <style name="Theme.Cafe.Actionbar." parent="Theme.MaterialComponents.DayNight.Bridge">
         <!-- Primary brand color. -->

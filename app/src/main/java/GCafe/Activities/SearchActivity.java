@@ -1,16 +1,15 @@
 package GCafe.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.cafe.R;
 import com.example.cafe.databinding.ActivitySearchBinding;
 
 import org.json.JSONArray;
@@ -75,7 +74,6 @@ public class SearchActivity extends AppCompatActivity {
                                 childObj.getDouble("price_discount"),
                                 childObj.getInt("stock"),
                                 childObj.getInt("id")
-
                         );
                         products.add(product);
                     }

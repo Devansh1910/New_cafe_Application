@@ -1,17 +1,22 @@
 package GCafe.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,7 +24,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cafe.R;
 import com.example.cafe.databinding.ActivityCheckoutBinding;
@@ -31,9 +35,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import GCafe.Activities.Adapters.CartAdapter;
@@ -42,6 +48,10 @@ import GCafe.Activities.Utils.Constants;
 
 public class CheckoutActivity extends AppCompatActivity {
 
+    private static final int START_HOUR = 9;
+    private static final int START_MINUTE = 0;
+    private static final int END_HOUR = 17;
+    private static final int END_MINUTE = 0;
     ActivityCheckoutBinding binding;
     CartAdapter adapter;
     ArrayList<Product> products;
@@ -50,56 +60,111 @@ public class CheckoutActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     Cart cart;
 
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Button buttonTimePicker = findViewById(R.id.button_time_picker);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Processing your order...");
 
-//................................................................
         products = new ArrayList<>();
 
-      cart = TinyCartHelper.getCart();
+        cart = TinyCartHelper.getCart();
 
-        for(Map.Entry<Item, Integer> item : cart.getAllItemsWithQty().entrySet()){
+        for (Map.Entry<Item, Integer> item : cart.getAllItemsWithQty().entrySet()) {
             Product product = (Product) item.getKey();
             int quantity = item.getValue();
             product.setQuantity(quantity);
 
             products.add(product);
         }
-        adapter = new CartAdapter(this, products, new CartAdapter.CartListener() {
+        adapter = new CartAdapter(this, products, () -> binding.totalCost.setText(String.format("₹ %.2f", cart.getTotalPrice())));
+        //.......................................
+
+        buttonTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onQuantityChanged() {
-                binding.totalCost.setText(String.format("₹ %.2f",cart.getTotalPrice()));
+            public void onClick(View view) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(CheckoutActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                Calendar startTime = Calendar.getInstance();
+                                startTime.set(Calendar.HOUR_OF_DAY, START_HOUR);
+                                startTime.set(Calendar.MINUTE, START_MINUTE);
+                                Calendar endTime = Calendar.getInstance();
+                                endTime.set(Calendar.HOUR_OF_DAY, END_HOUR);
+                                endTime.set(Calendar.MINUTE, END_MINUTE);
+                                Calendar selectedTime = Calendar.getInstance();
+                                selectedTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                selectedTime.set(Calendar.MINUTE, minute);
+                                if (selectedTime.before(startTime) || selectedTime.after(endTime)) {
+                                    selectedTime.setTime(startTime.getTime());
+                                    Toast.makeText(CheckoutActivity.this, "Selected time is out of limits, Reselect!", Toast.LENGTH_LONG).show();
+                                }
+                                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                                String formattedTime = timeFormat.format(selectedTime.getTime());
+                                TextView textViewSelectedTime = findViewById(R.id.text_view_selected_time);
+                                textViewSelectedTime.setText("Selected Time: " + formattedTime);
+                            }
+                        },
+                        START_HOUR,
+                        START_MINUTE,
+                        true
+                );
+                timePickerDialog.show();
             }
         });
 
+
+        //.......................................
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,layoutManager.getOrientation());
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
 
         binding.cartList.setLayoutManager(layoutManager);
         binding.cartList.addItemDecoration(itemDecoration);
         binding.cartList.setAdapter(adapter);
 
-        binding.totalCost.setText(String.format("₹ %.2f",cart.getTotalPrice()));
-        totalPrice = (cart.getTotalPrice().doubleValue() * tax/100) + cart.getTotalPrice().doubleValue();
+        binding.totalCost.setText(String.format("₹ %.2f", cart.getTotalPrice()));
+        totalPrice = (cart.getTotalPrice().doubleValue() * tax / 100) + cart.getTotalPrice().doubleValue();
         binding.total.setText("₹" + totalPrice);
 
         binding.checkoutBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                processOrder();
+                validateData();
+            }
+
+            private void validateData() {
+                if (binding.nameBox.getText().toString().isEmpty()) {
+                    binding.nameBox.requestFocus();
+                    binding.nameBox.setError("Empty");
+
+                } else if (binding.emailBox.getText().toString().isEmpty()) {
+                    binding.emailBox.requestFocus();
+                    binding.emailBox.setError("Empty");
+
+                } else if (binding.phoneBox.getText().toString().isEmpty()) {
+                    binding.phoneBox.requestFocus();
+                    binding.phoneBox.setError("Empty");
+
+                } else if (binding.addressBox.getText().toString().isEmpty()) {
+                    binding.addressBox.requestFocus();
+                    binding.addressBox.setError("Empty");
+                } else {
+                    processOrder();
+                }
             }
         });
 
 //................................................
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     void processOrder(){

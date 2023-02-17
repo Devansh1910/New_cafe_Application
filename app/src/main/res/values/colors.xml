@@ -19,4 +19,6 @@
     //.....registration......
     <color name="colorPrimary">#C10C0C</color>
     <color name="colorSecondry">#ffffff</color>
+    <color name="pure_red">#680606</color>
+
 </resources>

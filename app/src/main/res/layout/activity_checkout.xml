@@ -212,7 +212,7 @@
                         android:ems="10"
                         android:textColorHint="@android:color/darker_gray"
                         android:hint="Phone Number"
-                        android:inputType="textPersonName"
+                        android:inputType="phone"
                         android:padding="15dp" />
 
                     <EditText
@@ -228,18 +228,43 @@
                         android:inputType="textPersonName"
                         android:padding="15dp" />
 
-                    <EditText
-                        android:id="@+id/dateBox"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:textColor="@color/black"
-                        android:background="@drawable/edittext_bg"
-                        android:ems="10"
-                        android:hint="Time of Takeaway"
-                        android:textColorHint="@android:color/darker_gray"
-                        android:inputType="textPersonName"
-                        android:padding="15dp" />
+                        android:drawableStart="@drawable/cc"
+                        android:drawablePadding="3dp"
+                        android:text="Online Booking working hrs : 9.00 am till 5.00 pm"
+                        android:textStyle="bold"
+                        android:textColor="@color/heading"
+                        android:layout_marginLeft="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button_time_picker"
+                            android:layout_width="wrap_content"
+                            android:padding="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_height="wrap_content"
+                            android:text="Show Time Picker" />
+
+                        <EditText
+                            android:id="@+id/text_view_selected_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textColorHint="@android:color/darker_gray"
+                            android:hint="Select Time..."
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/edittext_bg"
+                            android:textColor="@color/black"
+                            android:textSize="16dp"
+                            android:padding="15dp"/>
+
+                    </LinearLayout>
 
                     <EditText
                         android:id="@+id/commentBox"

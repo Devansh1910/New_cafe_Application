@@ -80,7 +80,7 @@
                 app:riv_oval="true"
                 android:background="@color/black"
                 android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"
+                android:src="@drawable/dragon"
                 app:riv_mutate_background="true"/>
 
         </LinearLayout>

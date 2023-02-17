@@ -1,10 +1,10 @@
 package GCafe.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -77,7 +77,6 @@ public class CategoryActivity extends AppCompatActivity {
                                 childObj.getDouble("price_discount"),
                                 childObj.getInt("stock"),
                                 childObj.getInt("id")
-
                         );
                         products.add(product);
                     }
