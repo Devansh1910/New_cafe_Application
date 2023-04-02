@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
     void getRecentProducts() {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = Constants.GET_PRODUCTS_URL + "?count=8";
-        @SuppressLint("NotifyDataSetChanged") StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+        String url = Constants.GET_PRODUCTS_URL + "?count=12";
+        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
             try {
                 JSONObject object = new JSONObject(response);
                 if(object.getString("status").equals("success")){

@@ -24,10 +24,9 @@ import GCafe.Activities.Utils.Constants;
 
 public class CategoryActivity extends AppCompatActivity {
 
-    ActivityCategoryBinding binding;
-    ProductAdapter productAdapter;
-    ArrayList<Product> products;
-
+    private ActivityCategoryBinding binding;
+    private ProductAdapter productAdapter;
+    private ArrayList<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +34,10 @@ public class CategoryActivity extends AppCompatActivity {
         binding = ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
         products = new ArrayList<>();
         productAdapter = new ProductAdapter(this, products);
 
-        int catId = getIntent().getIntExtra("catId",0);
+        int catId = getIntent().getIntExtra("catId", 0);
         String categoryName = getIntent().getStringExtra("categoryName");
 
         getSupportActionBar().setTitle(categoryName);
@@ -58,16 +56,16 @@ public class CategoryActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    void getProducts(int catId) {
+    private void getProducts(int catId) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        String url = Constants.GET_PRODUCTS_URL + "?category_id="+ catId;
+        String url = Constants.GET_PRODUCTS_URL + "?category_id=" + catId;
         @SuppressLint("NotifyDataSetChanged") StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
             try {
                 JSONObject object = new JSONObject(response);
-                if(object.getString("status").equals("success")){
+                if (object.getString("status").equals("success")) {
                     JSONArray productsArray = object.getJSONArray("products");
-                    for(int i =0; i< productsArray.length(); i++) {
+                    for (int i = 0; i < productsArray.length(); i++) {
                         JSONObject childObj = productsArray.getJSONObject(i);
                         Product product = new Product(
                                 childObj.getString("name"),
@@ -85,9 +83,10 @@ public class CategoryActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }, error -> { });
+        }, error -> {
+        });
 
         queue.add(request);
     }
-
 }
+

@@ -41,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
 //        Rateus();
 //        OrderHistory();
 //        Payment();
-//        Logout();
+          Logout();
     }
 //..........................................
     @Override

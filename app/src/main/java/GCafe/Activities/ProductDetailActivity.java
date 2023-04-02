@@ -30,7 +30,8 @@ import GCafe.Activities.Utils.Constants;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    @NonNull ActivityProductDetailBinding binding;
+
+    ActivityProductDetailBinding binding;
     Product currentProduct;
 
     @Override
@@ -56,31 +57,32 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         Cart cart = TinyCartHelper.getCart();
 
+
         binding.AddtoCartbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cart.addItem(currentProduct,1);
                 binding.AddtoCartbtn.setEnabled(false);
-                binding.AddtoCartbtn.setText("Added to Cart!");
+                binding.AddtoCartbtn.setText("Added in cart");
             }
         });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cart,menu);
+        getMenuInflater().inflate(R.menu.cart, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.cart){
-            startActivity(new Intent(this,CartActivity.class));
+        if(item.getItemId() == R.id.cart) {
+            startActivity(new Intent(this, CartActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
 
-    void getProductDetails(int id){
+    void getProductDetails(int id) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
         String url = Constants.GET_PRODUCT_DETAILS_URL + id;
@@ -90,7 +92,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject object = new JSONObject(response);
-                    if(object.getString("status").equals(("success"))){
+                    if(object.getString("status").equals("success")) {
                         JSONObject product = object.getJSONObject("product");
                         String description = product.getString("description");
                         binding.ProductDescription.setText(
@@ -106,11 +108,11 @@ public class ProductDetailActivity extends AppCompatActivity {
                                 product.getInt("stock"),
                                 product.getInt("id")
                         );
+
                     }
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
