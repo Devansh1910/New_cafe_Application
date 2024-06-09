@@ -17,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import com.example.cafe.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -29,14 +30,12 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private EditText userPhone;
     private ProgressBar progressBar;
     private CardView loginBtn;
     private TextView skiplogin;
     private TextView signup;
-
     SharedPreferences sharedPreferences;
     private static final String SHARED_PREF_NAME = "MyPref";
 
@@ -44,8 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseApp.initializeApp(this);
 
         userPhone = findViewById(R.id.userPhone);
         progressBar = findViewById(R.id.progressBar);
@@ -53,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         skiplogin = findViewById(R.id.skip);
         signup = findViewById(R.id.Signupbtn);
 
-        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-        SharedPreferences.Editor editor=sharedPreferences.edit();
+        sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         skiplogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
     private void checkDetail(final String detail) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         firestore.collection("users")
@@ -94,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             if (!task.getResult().isEmpty()) {
-                                otpSend();
+//                                otpSend();
                             } else {
                                 // detail is not present in the database, show a Toast message
                                 Toast.makeText(LoginActivity.this, userPhone.getText()+ " is not registered.", Toast.LENGTH_SHORT).show();
@@ -112,14 +111,14 @@ public class LoginActivity extends AppCompatActivity {
                     }});
     }
 
-    private void otpSend() {
+    private void otpSend(FirebaseAuth mAuth) {
         progressBar.setVisibility(View.VISIBLE);
         loginBtn.setVisibility(View.VISIBLE);
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-
+                // Handle verification completion
             }
 
             @Override
@@ -140,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
+
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber("+91" + userPhone.getText().toString().trim())

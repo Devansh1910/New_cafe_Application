@@ -141,8 +141,8 @@
                         android:fontFamily="sans-serif-condensed-medium"
                         android:hint="Phone Number"
                         android:maxEms="10"
-                        android:textColor="@color/black"
                         android:maxLines="1"
+                        android:textColor="@color/black"
                         android:textColorHint="#606060" />
 
                 </com.google.android.material.textfield.TextInputLayout>

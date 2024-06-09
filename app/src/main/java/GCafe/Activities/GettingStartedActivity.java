@@ -31,7 +31,7 @@ public class GettingStartedActivity extends AppCompatActivity {
         binding.getstartedbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(GettingStartedActivity.this,LoginActivity.class));
+                startActivity(new Intent(GettingStartedActivity.this,MainActivity.class));
             }
         });
     }
