@@ -75,7 +75,7 @@ public class CategoryActivity extends AppCompatActivity {
                                 childObj.getDouble("price_discount"),
                                 childObj.getInt("stock"),
                                 childObj.getInt("id")
-                        );
+                                );
                         products.add(product);
                     }
                     productAdapter.notifyDataSetChanged();

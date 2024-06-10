@@ -3,6 +3,7 @@ package GCafe.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +45,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         String image = getIntent().getStringExtra("image");
         int id = getIntent().getIntExtra("id",0);
         double price = getIntent().getDoubleExtra("price",0);
+        String description = getIntent().getStringExtra("description");
 
         Glide.with(this)
                 .load(image)
